@@ -1,7 +1,11 @@
 export default function Loading() {
   return (
-    <div className="fixed inset-0 z-50 bg-gray-50/60">
-      <img src="https://i.pinimg.com/originals/dd/da/6f/ddda6fdcfafadf661c310afec9ca6a6c.gif" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    <div className="text-center w-screen h-22 flex items-center justify-center gap-5">
+      <img
+        src="https://i.namu.wiki/i/gWU5n-TjfwypgXD-SXBrbvAQC829ms4NVcg8cCMBsA3-wBm6gCDYTiDllbG7zGIlYAi5GGcunUGyILzbVhif8Q.gif"
+        className="h-full"
+      />
+      <p className="font-semibold">Loading...</p>
     </div>
   );
 }

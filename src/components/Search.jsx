@@ -1,15 +1,22 @@
-import SelectType from "./SelectType";
+import { useState } from "react";
 
 export default function Search() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    console.log("검색어:", searchTerm);
+    // 검색 or 필터 기능 여기에 추가하면 됨
+  };
+
   return (
-    <div className="w-full py-5 text-center">
-      <div className="w-full py-10 flex justify-center gap-3.5">
-        <SelectType />
-      </div>
+    <div className="w-full p-5 pt-16 text-center sm:pt-34">
+      {/* 검색창 영역 */}
       <div className="w-full flex justify-center">
-        <div className="max-w-[500px] flex items-center justify-center bg-yellow-400 gap-2.5 rounded-full p-2.5 border-blue-900 border-4">
-          <input type="text" className="w-[350px] h-[50px] bg-white rounded-full p-3" />
-          <button className="px-3 h-[50px] font-bold text-xl text-blue-900 rounded-full focus:border-blue-500">search</button>
+        <div className="max-w-[500px] min-w-[200px] flex items-center justify-center bg-yellow-400 gap-1.5 rounded-full p-1.5 border-blue-900 border-4">
+          <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-[350px] min-w-[150px] h-[50px] bg-white rounded-full p-3" placeholder="검색어 입력좀요" />
+          <button onClick={handleSearch} className="px-3 cursor-pointer h-[50px] font-bold text-xl text-blue-900 rounded-full focus:border-blue-500">
+            Search
+          </button>
         </div>
       </div>
     </div>

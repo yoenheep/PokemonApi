@@ -1,32 +1,64 @@
-export default function Modal() {
+export default function Modal({ selectedPokemon, setSelectedPokemon }) {
+  console.log(selectedPokemon);
+  if (!selectedPokemon) return null; // selectedPokemon이 없으면 모달이 표시되지 않음
+
+  const handleClose = () => {
+    setSelectedPokemon(null); // 모달 닫기
+  };
+
+  // selectedPokemon 데이터가 잘못된 경우 대체 값을 처리
+  const types = selectedPokemon.types || []; // 타입이 없을 경우 빈 배열 처리
+  const flavorText = selectedPokemon.flavorText || "설명 데이터 없음"; // 설명이 없을 경우 대체 텍스트
+
   return (
-    <dialog className="fixed inset-0 z-50 bg-black/20 flex items-center justify-center h-screen w-screen">
-      <div className="relative flex p-10 justify-center rounded-2xl border-4 border-blue-900 bg-white gap-20">
-        <button className="absolute top-0 right-4 text-6xl font-extrabold">⨯</button>
-        <div className="text-center font-semibold flex flex-col justify-between">
-          <p>No.1</p>
-          <p>이상해씨</p>
-          <div className="flex items-center justify-evenly">
-            <div className="rounded-full bg-green-300 w-[100px]">풀</div>
-            <div className="rounded-full bg-green-300 w-[100px]">드래곤</div>
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center h-screen w-screen">
+      <div className="relative flex flex-col-reverse gap-10 p-10 justify-center rounded-2xl border-4 border-blue-900 bg-white max-w-screen-sm mx-4 text-black dark:text-white dark:bg-black sm:flex-row sm:gap-0">
+        <button onClick={handleClose} className="absolute top-2 right-4 text-4xl font-extrabold">
+          ⨯
+        </button>
+
+        <div className="text-center font-semibold flex flex-col justify-between gap-6  sm:w-1/2">
+          {/* 포켓몬 ID와 한국어 이름 */}
+          <p className="text-xl font-bold">No. {selectedPokemon.id}</p>
+          <p className="text-2xl">{selectedPokemon.koreanName}</p>
+
+          {/* 포켓몬 타입 */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {types.length > 0 ? (
+              types.map((type, index) => (
+                <div
+                  key={index}
+                  className={`rounded-full ${type.type.color} px-4 py-1 w-[90px] text-center`} // 타입에 맞는 색상 적용
+                >
+                  {type.type.koreanName} {/* 한국어 타입명 */}
+                </div>
+              ))
+            ) : (
+              <div className="text-gray-500">타입 정보 없음</div>
+            )}
           </div>
-          <p>무슨타입의 포케몬</p>
-          <p>뭐라무라ㅓ마러ㅏ머라머라ㅓㄹ</p>
+
+          {/* 게임 내 설명 */}
+          <p className="text-gray-700 dark:text-gray-200 text-[16px]">{flavorText}</p>
+
+          {/* 키와 몸무게 */}
           <div className="flex items-center justify-evenly">
-            <div>
-              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3">신장</div>
-              <p>161cm</p>
+            <div className="text-center">
+              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">신장</div>
+              <p>{selectedPokemon.height} cm</p> {/* height: cm 단위로 변환됨 */}
             </div>
-            <div>
-              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3">체중</div>
-              <p>?????</p>
+            <div className="text-center">
+              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">체중</div>
+              <p>{selectedPokemon.weight} kg</p> {/* weight: kg 단위로 변환됨 */}
             </div>
           </div>
         </div>
-        <div className="w-[300px]">
-          <img src="https://i.pinimg.com/originals/bf/95/c5/bf95c53a70819967d79c6ce2ff6883bc.gif" />
+
+        {/* 포켓몬 이미지 */}
+        <div className="flex justify-center items-center sm:w-1/2">
+          <img src={selectedPokemon.animatedImageUrl || selectedPokemon.imageUrl} alt={selectedPokemon.koreanName} className="object-contain w-3/4 max-h-80" />
         </div>
       </div>
-    </dialog>
+    </div>
   );
 }

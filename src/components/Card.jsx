@@ -59,10 +59,25 @@ export default function Card({ pokemon, onClick }) {
       </div>
 
       <div className="w-full">
-        {animatedImageUrl ? (
-          <img src={animatedImageUrl} alt={pokemon.koreanName || pokemon.name} className="pokemon-sprite animated w-3/4 h-auto max-h-34 object-contain mx-auto" />
-        ) : imageUrl ? (
-          <img src={imageUrl} alt={pokemon.koreanName || pokemon.name} className="pokemon-sprite static w-3/4 h-auto max-h-34 object-contain mx-auto" />
+        {animatedImageUrl || imageUrl ? (
+          <img
+            src={animatedImageUrl || imageUrl}
+            onError={(e) => {
+              e.target.onerror = null; // 무한 루프 방지
+              if (animatedImageUrl && e.target.src === animatedImageUrl && imageUrl) {
+                e.target.src = imageUrl; // gif 없으면 png로 fallback
+              } else {
+                // 둘 다 실패한 경우 텍스트 fallback
+                e.target.outerHTML = `
+          <div class='w-3/4 h-24 mx-auto bg-gray-100 flex items-center justify-center'>
+            <p>이미지 없음</p>
+          </div>
+        `;
+              }
+            }}
+            alt={pokemon.koreanName || pokemon.name}
+            className={`pokemon-sprite ${animatedImageUrl ? "animated" : "static"} w-3/4 h-auto max-h-34 object-contain mx-auto`}
+          />
         ) : (
           <div className="w-3/4 h-24 mx-auto bg-gray-100 flex items-center justify-center">
             <p>이미지 로딩중...</p>

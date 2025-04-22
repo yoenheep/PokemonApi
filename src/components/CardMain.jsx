@@ -5,7 +5,7 @@ import Card from "./Card";
 import Modal from "./Modal"; // 모달 import
 
 export default function CardMain() {
-  const { pokemons, loading, error, getPokemons, getPokemonDetails } = usePokemonContext();
+  const { pokemons, loading, error, getPokemons, getPokemonDetails, searchPokemons } = usePokemonContext();
   const [selectedPokemon, setSelectedPokemon] = useState(null); // 모달 상태
 
   const handleLoadMore = () => {
@@ -31,11 +31,13 @@ export default function CardMain() {
     };
   }, [loading]); // 로딩 상태만 의존성으로 넣어서 최적화
 
+  const listToRender = searchPokemons.length > 0 ? searchPokemons : pokemons;
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-15 justify-items-center py-10 sm:mx-40">
         {error && <p className="error">{error}</p>}
-        {pokemons.map((pokemon) => (
+        {listToRender.map((pokemon) => (
           <Card
             key={pokemon.id}
             pokemon={pokemon}

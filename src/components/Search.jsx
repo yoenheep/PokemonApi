@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { usePokemonContext } from "./PokeContextProvider";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
+  const { searchFiltered } = usePokemonContext();
 
   const handleSearch = () => {
     console.log("검색어:", searchTerm);
-    // 검색 or 필터 기능 여기에 추가하면 됨
+
+    searchFiltered(searchTerm);
   };
 
   return (

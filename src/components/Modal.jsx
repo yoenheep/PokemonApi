@@ -45,7 +45,7 @@ export default function Modal({ selectedPokemon, setSelectedPokemon }) {
           <div className="flex items-center justify-evenly">
             <div className="text-center">
               <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">신장</div>
-              <p>{selectedPokemon.height} cm</p> {/* height: cm 단위로 변환됨 */}
+              <p>{selectedPokemon.height} m</p> {/* height: cm 단위로 변환됨 */}
             </div>
             <div className="text-center">
               <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">체중</div>

@@ -4,30 +4,27 @@ import BackGif from "./components/BackGif";
 import CardMain from "./components/CardMain";
 import Top from "./components/Top";
 import { PokemonProvider } from "./components/PokeContextProvider";
-import { ThemeProvider } from "./components/ThemeProvider";
 
 function App() {
   return (
-    <ThemeProvider>
-      <PokemonProvider>
-        <div className="bg-gray-50 relative dark:bg-gray-900">
-          {/* header */}
-          <Header />
+    <PokemonProvider>
+      <div className="bg-gray-50 relative dark:bg-gray-900">
+        {/* header */}
+        <Header />
 
-          {/* search */}
-          <Search />
+        {/* search */}
+        <Search />
 
-          {/* 피카츄뛰는 배경 */}
-          <BackGif />
+        {/* 피카츄뛰는 배경 */}
+        <BackGif />
 
-          {/* ㄹㅇ포켓몬 카드리스트 */}
-          <CardMain />
+        {/* ㄹㅇ포켓몬 카드리스트 */}
+        <CardMain />
 
-          {/* top 버튼 */}
-          <Top />
-        </div>
-      </PokemonProvider>
-    </ThemeProvider>
+        {/* top 버튼 */}
+        <Top />
+      </div>
+    </PokemonProvider>
   );
 }
 

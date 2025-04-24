@@ -7,12 +7,7 @@ export default function Card({ pokemon, onClick }) {
   const [pokemonId, setPokemonId] = useState(null);
 
   useEffect(() => {
-    const extractIdFromUrl = () => {
-      const urlParts = pokemon.url.split("/");
-      return urlParts[urlParts.length - 2];
-    };
-
-    const id = extractIdFromUrl();
+    const id = pokemon.id;
     setPokemonId(id);
 
     const baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";

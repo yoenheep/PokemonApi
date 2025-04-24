@@ -4,8 +4,10 @@ import { ThemeContext } from "./ThemeProvider";
 import { Link } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase-congif";
+import { useLanguageContext } from "./LanguageProvider";
 
 export default function Header() {
+  const { language, changeLanguage } = useLanguageContext();
   const { theme, changeTheme } = useContext(ThemeContext);
   const [user, setUser] = useState(null);
 
@@ -39,8 +41,10 @@ export default function Header() {
           <></>
         ) : (
           <div className="font-semibold">
-            <p>{user.displayName} 트레이너!! </p>
-            <p>환영합니다</p>
+            <p>
+              {user.displayName} {language === "ko" ? "트레이너!!" : "trainer!!"}
+            </p>
+            <p>{language === "ko" ? "환영합니다" : "Welcome"}</p>
           </div>
         )}
 
@@ -69,6 +73,20 @@ export default function Header() {
               <>
                 <img src="https://i.namu.wiki/i/HpKMBJhAo0yGI-5Rij2MilxDycqyghP_DEkDpWtSUqgZkfBUcTsdDmQ_3U-0ndbFTq7sQIVBez1M1bLdqi1Klg.webp" />
                 <p>Light</p>
+              </>
+            )}
+          </button>
+
+          <button onClick={changeLanguage} className="cursor-pointer sm:w-[42px] w-[35px]">
+            {language === "ko" ? (
+              <>
+                <img src="https://i.namu.wiki/i/vlnDdfwFLkzYFf7nNLEJ9fVZXpuy7Y6pR4WLp3Rxu8Z2A50UWZzGt_iNjH-B6YxQaIjTyfrj0VopQ8uYR-hRDA.webp" />
+                <p>ENG</p>
+              </>
+            ) : (
+              <>
+                <img src="https://i.namu.wiki/i/U6e2CQUpk8s-HxMQNWJPF_vfzlqLAsuRCeI68CHOk8GvuagcVU0TjhuZ7o0WwpQEG7hk6Ck207c1EpIgb3E3qA.webp" />
+                <p>KOR</p>
               </>
             )}
           </button>

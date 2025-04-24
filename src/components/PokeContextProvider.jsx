@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { fetchPokemons, fetchPokemonDetails, fetchPokemonSpecies, fetchAllPokemons } from "./PokeApi";
 import { TypeInfo } from "./PokemonTypeInfo";
+import { useLanguageContext } from "./LanguageProvider";
 
 const PokemonContext = createContext();
 
 export const usePokemonContext = () => useContext(PokemonContext);
 
 export const PokemonProvider = ({ children }) => {
+  const { language } = useLanguageContext();
   const [pokemons, setPokemons] = useState([]);
   const [searchPokemons, setSearchPokemons] = useState(null);
   const [scrollLoading, setScrollLoading] = useState(false);
@@ -32,9 +34,9 @@ export const PokemonProvider = ({ children }) => {
             const detailData = await fetchPokemonDetails(pokemon.name);
             const speciesData = await fetchPokemonSpecies(detailData.species?.url);
 
-            const koreanName = speciesData.names.find((name) => name.language.name === "ko")?.name || pokemon.name;
+            const koreanName = speciesData.names.find((name) => name.language.name === language)?.name || pokemon.name;
             const id = (pokemon.url || detailData.species.url)?.split("/")[6];
-            const koreanFlavorText = speciesData.flavor_text_entries.find((entry) => entry.language.name === "ko")?.flavor_text || "";
+            const koreanFlavorText = speciesData.flavor_text_entries.find((entry) => entry.language.name === language)?.flavor_text || "";
 
             const types = detailData.types.map((type) => {
               const { koreanName, color } = TypeInfo(type.type.name);
@@ -83,10 +85,11 @@ export const PokemonProvider = ({ children }) => {
     }
   };
 
-  const getPokemons = async () => {
+  const getPokemons = async (customOffset = offset) => {
     setScrollLoading(true);
     try {
-      await fetchAndBuildPokemons(() => fetchPokemons(offset, limit));
+      await fetchAndBuildPokemons(() => fetchPokemons(customOffset, limit));
+      if (customOffset === 0) setOffset(limit);
     } catch (err) {
       console.error(err);
     } finally {
@@ -109,10 +112,12 @@ export const PokemonProvider = ({ children }) => {
     }
   };
 
-  // 초기 포켓몬 목록 로드
   useEffect(() => {
-    getPokemons();
-  }, []); // 컴포넌트가 마운트될 때 한 번만 호출
+    // 언어가 바뀔 때마다 포켓몬을 다시 불러오기
+    setPokemons([]); // 기존 목록 비우기
+    setOffset(0); // offset 초기화
+    getPokemons(0);
+  }, [language]);
 
   const value = {
     pokemons,

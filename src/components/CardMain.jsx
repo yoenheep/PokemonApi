@@ -4,8 +4,10 @@ import Loading from "./Loading";
 import Card from "./Card";
 import Modal from "./Modal"; // 모달 import
 import Nimpia from "../assets/Nimpia.gif";
+import { useLanguageContext } from "./LanguageProvider";
 
 export default function CardMain() {
+  const { language } = useLanguageContext();
   const { pokemons, searchLoading, scrollLoading, error, getPokemons, searchPokemons } = usePokemonContext();
   const [selectedPokemon, setSelectedPokemon] = useState(null); // 모달 상태
 
@@ -46,7 +48,7 @@ export default function CardMain() {
         {searchPokemons?.length === 0 ? (
           <div className="text-center font-semibold col-span-full">
             <img src={Nimpia} />
-            <p>검색 결과가 없습니당</p>
+            {language === "ko" ? <p>검색 결과가 없습니당</p> : <p>no result</p>}
           </div>
         ) : (
           listToRender.map((pokemon) => (

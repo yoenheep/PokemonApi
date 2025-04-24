@@ -1,14 +1,20 @@
+import { useLanguageContext } from "./LanguageProvider"; // 언어 context import
+import { TypeInfo } from "./PokemonTypeInfo";
+
 export default function Modal({ selectedPokemon, setSelectedPokemon }) {
-  console.log(selectedPokemon);
-  if (!selectedPokemon) return null; // selectedPokemon이 없으면 모달이 표시되지 않음
+  const { language } = useLanguageContext();
 
-  const handleClose = () => {
-    setSelectedPokemon(null); // 모달 닫기
-  };
+  // selectedPokemon이 없으면 모달이 표시되지 않도록 처리
+  if (!selectedPokemon) return null;
 
-  // selectedPokemon 데이터가 잘못된 경우 대체 값을 처리
-  const types = selectedPokemon.types || []; // 타입이 없을 경우 빈 배열 처리
-  const flavorText = selectedPokemon.flavorText || "설명 데이터 없음"; // 설명이 없을 경우 대체 텍스트
+  const handleClose = () => setSelectedPokemon(null);
+
+  const types = selectedPokemon.types || [];
+  const flavorText = selectedPokemon.flavorText || (language === "ko" ? "설명 데이터 없음" : "No description available");
+
+  // 키와 체중 라벨을 언어에 맞게 동적으로 변경
+  const heightLabel = language === "ko" ? "키" : "Height";
+  const weightLabel = language === "ko" ? "체중" : "Weight";
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center h-screen w-screen">
@@ -17,44 +23,41 @@ export default function Modal({ selectedPokemon, setSelectedPokemon }) {
           ⨯
         </button>
 
-        <div className="text-center font-semibold flex flex-col justify-between gap-6  sm:w-1/2">
-          {/* 포켓몬 ID와 한국어 이름 */}
+        <div className="text-center font-semibold flex flex-col justify-between gap-6 sm:w-1/2">
           <p className="text-xl font-bold">No. {selectedPokemon.id}</p>
-          <p className="text-2xl">{selectedPokemon.koreanName}</p>
+          <p className="text-2xl">{language === "ko" ? selectedPokemon.koreanName : selectedPokemon.name}</p>
 
-          {/* 포켓몬 타입 */}
+          {/* 타입 표시 */}
           <div className="flex flex-wrap justify-center gap-2">
             {types.length > 0 ? (
-              types.map((type, index) => (
-                <div
-                  key={index}
-                  className={`rounded-full ${type.type.color} px-4 py-1 w-[90px] text-center`} // 타입에 맞는 색상 적용
-                >
-                  {type.type.koreanName} {/* 한국어 타입명 */}
-                </div>
-              ))
+              types.map((type, index) => {
+                const { name, color } = TypeInfo(type.type.name, language);
+                return (
+                  <div key={index} className={`rounded-full ${color} px-4 py-1 w-[90px] text-center`}>
+                    {name}
+                  </div>
+                );
+              })
             ) : (
-              <div className="text-gray-500">타입 정보 없음</div>
+              <div className="text-gray-500">{language === "ko" ? "타입 정보 없음" : "No type data"}</div>
             )}
           </div>
 
-          {/* 게임 내 설명 */}
           <p className="text-gray-700 dark:text-gray-200 text-[16px]">{flavorText}</p>
 
-          {/* 키와 몸무게 */}
           <div className="flex items-center justify-evenly">
             <div className="text-center">
-              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">신장</div>
-              <p>{selectedPokemon.height} m</p> {/* height: cm 단위로 변환됨 */}
+              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">{heightLabel}</div>
+              <p>{selectedPokemon.height} m</p>
             </div>
             <div className="text-center">
-              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">체중</div>
-              <p>{selectedPokemon.weight} kg</p> {/* weight: kg 단위로 변환됨 */}
+              <div className="py-0.5 px-8 rounded-full bg-gray-100 mb-3 dark:bg-gray-800">{weightLabel}</div>
+              <p>{selectedPokemon.weight} kg</p>
             </div>
           </div>
         </div>
 
-        {/* 포켓몬 이미지 */}
+        {/* 이미지 */}
         <div className="flex justify-center items-center sm:w-1/2">
           <img src={selectedPokemon.animatedImageUrl || selectedPokemon.imageUrl} alt={selectedPokemon.koreanName} className="object-contain w-3/4 max-h-80" />
         </div>

@@ -51,7 +51,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen flex flex-col dark:bg-gray-900">
+    <div className="h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <Header />
       <div className="flex-1 flex justify-center items-center mt-15">
         <form onSubmit={handleSubmit} className="w-full max-w-[500px] flex flex-col gap-6 items-center">

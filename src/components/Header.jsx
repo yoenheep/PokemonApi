@@ -80,12 +80,12 @@ export default function Header() {
           <button onClick={changeLanguage} className="cursor-pointer sm:w-[42px] w-[35px]">
             {language === "ko" ? (
               <>
-                <img src="https://i.namu.wiki/i/vlnDdfwFLkzYFf7nNLEJ9fVZXpuy7Y6pR4WLp3Rxu8Z2A50UWZzGt_iNjH-B6YxQaIjTyfrj0VopQ8uYR-hRDA.webp" />
+                <img src="https://i.namu.wiki/i/LcwjCZRsiuuqRafySQSymY0PRTYwFH5_QeTMuveyN1sM9zvY0g89AxUqwtiPwcOrOpYpZRu_YoYKgdM2VTdPoA.webp" />
                 <p>ENG</p>
               </>
             ) : (
               <>
-                <img src="https://i.namu.wiki/i/U6e2CQUpk8s-HxMQNWJPF_vfzlqLAsuRCeI68CHOk8GvuagcVU0TjhuZ7o0WwpQEG7hk6Ck207c1EpIgb3E3qA.webp" />
+                <img src="https://i.namu.wiki/i/wlFB015mMPwfrDZoUpY-3vPorwnupo5sRxgIRI0v_LtL85nELDKGMuehUOVq6YS7lx-jPGhYjXt0PImg6DHw3w.webp" />
                 <p>KOR</p>
               </>
             )}

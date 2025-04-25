@@ -46,7 +46,7 @@ export default function CardMain() {
           </div>
         )}
         {searchPokemons?.length === 0 ? (
-          <div className="text-center font-semibold col-span-full">
+          <div className="text-center font-semibold col-span-full dark:text-white">
             <img src={Nimpia} />
             {language === "ko" ? <p>검색 결과가 없습니당</p> : <p>no result</p>}
           </div>

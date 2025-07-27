@@ -42,7 +42,8 @@ export default function Header() {
         ) : (
           <div className="font-semibold">
             <p>
-              {user.displayName} {language === "ko" ? "트레이너!!" : "trainer!!"}
+              {user.displayName}{" "}
+              {language === "ko" ? "트레이너!!" : "trainer!!"}
             </p>
             <p>{language === "ko" ? "환영합니다" : "Welcome"}</p>
           </div>
@@ -52,18 +53,24 @@ export default function Header() {
           {user === null ? (
             <Link to={"/login"}>
               <button className="cursor-pointer sm:w-[42px] w-[35px]">
-                <img src="https://i.namu.wiki/i/woY_nQ0twLrzOJNBL9RoyelLgcz98pBrbEIXXfflB9NXsuJ2_ebhXstxucKfEtHXmLhf_fKYqm7YiEQgWL-MG5hg_-E-h_ZIJXqtIg80yi-0Y55t7pW5b5WbI5C8_iaAvyVUpAiH95xgUN53LKr6hg.webp" />
+                <img src="https://static.wikia.nocookie.net/pokemon/images/9/9c/%EB%AF%B8%EB%81%84%EB%A9%94%EB%9D%BC_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest?cb=20170802121630&path-prefix=ko" />
                 <p>Login</p>
               </button>
             </Link>
           ) : (
-            <button className="cursor-pointer sm:w-[42px] w-[35px]" onClick={logout}>
-              <img src="https://i.namu.wiki/i/woY_nQ0twLrzOJNBL9RoyelLgcz98pBrbEIXXfflB9NXsuJ2_ebhXstxucKfEtHXmLhf_fKYqm7YiEQgWL-MG5hg_-E-h_ZIJXqtIg80yi-0Y55t7pW5b5WbI5C8_iaAvyVUpAiH95xgUN53LKr6hg.webp" />
+            <button
+              className="cursor-pointer sm:w-[42px] w-[35px]"
+              onClick={logout}
+            >
+              <img src="https://static.wikia.nocookie.net/pokemon/images/9/9c/%EB%AF%B8%EB%81%84%EB%A9%94%EB%9D%BC_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest?cb=20170802121630&path-prefix=ko" />
               <p>Logout</p>
             </button>
           )}
 
-          <button onClick={changeTheme} className="cursor-pointer sm:w-[42px] w-[35px]">
+          <button
+            onClick={changeTheme}
+            className="cursor-pointer sm:w-[42px] w-[35px]"
+          >
             {theme === "light" ? (
               <>
                 <img src="https://i.namu.wiki/i/tDykfv_xRSxTM1e-ODwaIrl-7QRUbtxeV06xnhiZ6E6o_pnE4cQVckwMXulqu4adkAU932VHIoDpoSMpNmifiA.webp" />
@@ -77,7 +84,10 @@ export default function Header() {
             )}
           </button>
 
-          <button onClick={changeLanguage} className="cursor-pointer sm:w-[42px] w-[35px]">
+          <button
+            onClick={changeLanguage}
+            className="cursor-pointer sm:w-[42px] w-[35px]"
+          >
             {language === "ko" ? (
               <>
                 <img src="https://i.namu.wiki/i/LcwjCZRsiuuqRafySQSymY0PRTYwFH5_QeTMuveyN1sM9zvY0g89AxUqwtiPwcOrOpYpZRu_YoYKgdM2VTdPoA.webp" />

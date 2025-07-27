@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase-congif";
 import { useLanguageContext } from "./LanguageProvider";
+import loginImg from "../assets/login.png";
 
 export default function Header() {
   const { language, changeLanguage } = useLanguageContext();
@@ -53,7 +54,7 @@ export default function Header() {
           {user === null ? (
             <Link to={"/login"}>
               <button className="cursor-pointer sm:w-[42px] w-[35px]">
-                <img src="https://static.wikia.nocookie.net/pokemon/images/9/9c/%EB%AF%B8%EB%81%84%EB%A9%94%EB%9D%BC_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest?cb=20170802121630&path-prefix=ko" />
+                <img src={loginImg} />
                 <p>Login</p>
               </button>
             </Link>
@@ -62,7 +63,7 @@ export default function Header() {
               className="cursor-pointer sm:w-[42px] w-[35px]"
               onClick={logout}
             >
-              <img src="https://static.wikia.nocookie.net/pokemon/images/9/9c/%EB%AF%B8%EB%81%84%EB%A9%94%EB%9D%BC_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest?cb=20170802121630&path-prefix=ko" />
+              <img src={loginImg} />
               <p>Logout</p>
             </button>
           )}
